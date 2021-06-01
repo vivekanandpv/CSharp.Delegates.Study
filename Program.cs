@@ -2,23 +2,26 @@
 
 namespace CSharp.Delegates.Study
 {
-    public delegate void PrintMessage(string message);  //  this is a type, not an object!
-                                                        //  As such this is not usable!
+    //  delegate type is derived from MulticastDelegate
+    //  https://docs.microsoft.com/en-us/dotnet/api/system.multicastdelegate?view=net-5.0
+    //  This means, delegates inherently support multiple subscribers
+
+    public delegate void PrintMessage(string message);  
     class Program
     {
         static void Main(string[] args)
         {
-            //  creating an instance of the delegate with a static method
             PrintMessage delegateInstance1 = Foo;
 
             var sample = new Sample();
 
             //  creating an instance of the delegate with an instance method
-            PrintMessage delegateInstance2 = sample.Baz;
+            delegateInstance1 +=  sample.Baz;   //  multicasting
+            delegateInstance1 +=  sample.Baz;   //  duplicate subscription is allowed
+            delegateInstance1 +=  sample.Baz;
+            delegateInstance1 -=  sample.Baz;   //  unsubscribe
 
-            //  invoke the delegate
-            Bar(delegateInstance1, "Good Afternoon");   //  Foo will be called
-            Bar(delegateInstance2, "Good Afternoon");   //  Baz on Sample will be called
+            Bar(delegateInstance1, "Good Afternoon");
         }
 
         static void Foo(string m)
