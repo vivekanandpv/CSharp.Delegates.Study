@@ -8,36 +8,19 @@ namespace CSharp.Delegates.Study
     {
         static void Main(string[] args)
         {
-            //  creating an instance of the delegate with a static method
-            PrintMessage delegateInstance1 = Foo;
+            var cardSwiper = new CardSwiper();
 
-            var sample = new Sample();
+            //  register the listener
+            cardSwiper.AmountChanged += CardSwiper_AmountChanged;
 
-            //  creating an instance of the delegate with an instance method
-            PrintMessage delegateInstance2 = sample.Baz;
 
-            //  invoke the delegate
-            Bar(delegateInstance1, "Good Afternoon");   //  Foo will be called
-            Bar(delegateInstance2, "Good Afternoon");   //  Baz on Sample will be called
+            //  set the value
+            cardSwiper.CurrentAmount = 1457;
         }
 
-        static void Foo(string m)
+        private static void CardSwiper_AmountChanged(object sender, CardSwiperEventArgs e)
         {
-            Console.WriteLine($"Static Implementation: {m}");
-        }
-
-        static void Bar(PrintMessage pmDelegate, string message)
-        {
-            //  pmDelegate.Invoke(message); //  old way
-            pmDelegate(message); //  modern approach
-        }
-    }
-
-    class Sample
-    {
-        public void Baz(string m)
-        {
-            Console.WriteLine($"Instance Implementation: {m}");
+            Console.WriteLine($"Event handled: {e.Message}");
         }
     }
 }
