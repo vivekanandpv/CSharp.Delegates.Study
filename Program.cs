@@ -2,23 +2,45 @@
 
 namespace CSharp.Delegates.Study
 {
-    public delegate void PrintMessage(string message);
+    public delegate double SquareDelegate(double n);
+    public delegate double AreaOfRectangleDelegate(double l, double w);
+    public delegate int RandomIntProducerDelegate();
     class Program
     {
         static void Main(string[] args)
         {
-            //  This is the lambda expression implementation
-            PrintMessage anonymousDelegate = (str) => Console.WriteLine(str);
+            //  implicit return when block is absent
+            //  but only one statement is allowed
+            SquareDelegate sd = (x) => x * x;   //  x*x is the implicit return
 
-            Bar(anonymousDelegate, "Good Afternoon");
+            //  explicit return with a block
+            //  can have a proper method body with multi-line logic
+            SquareDelegate sdVerbose = (x) =>
+            {
+                //  logic...
+                return x * x;   //  return statement is required because of the block
+            };
 
-            //  lambda expression is usually written inline
-            Bar((s) => Console.WriteLine($"Lambda expression: {s}"), "Good day!");
-        }
+            //  parentheses not needed for one parameter
+            SquareDelegate sdVerbose2 = x =>
+            {
+                //  logic...
+                return x * x;   //  return statement is required because of the block
+            };
 
-        static void Bar(PrintMessage pmDelegate, string message)
-        {
-            pmDelegate(message);
+            //  2 parameters; parentheses are required; could be a oneliner with implicit return
+            AreaOfRectangleDelegate ad = (l, w) =>
+            {
+                //  logic...
+                return l * w;
+            };
+
+            //  no parameter; empty parentheses are required
+            RandomIntProducerDelegate rp = () =>
+            {
+                Random random = new Random();
+                return random.Next(100, 1000);
+            };
         }
     }
 }
