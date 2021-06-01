@@ -4,9 +4,11 @@ using System.Text;
 
 namespace CSharp.Delegates.Study
 {
+    //  Custom generic delegate type declaration
+    public delegate void CustomEventHandler<T>(object sender, T args);
     public class CardSwiper
     {
-        public event EventHandler<CardSwiperEventArgs> AmountChanged;
+        public event CustomEventHandler<CardSwiperEventArgs> AmountChanged;
         private int amount;
 
         public int CurrentAmount
