@@ -7,15 +7,13 @@ namespace CSharp.Delegates.Study
     {
         static void Main(string[] args)
         {
-            //  this is anonymous function implementation
-            //  Lambda expressions emerge from this point
-            //  note the delegate keyword use in other context
-            PrintMessage anonymousDelegate = delegate (string str)
-            {
-                Console.WriteLine($"Anonymous function delegate executing: {str}");
-            };
+            //  This is the lambda expression implementation
+            PrintMessage anonymousDelegate = (str) => Console.WriteLine(str);
 
             Bar(anonymousDelegate, "Good Afternoon");
+
+            //  lambda expression is usually written inline
+            Bar((s) => Console.WriteLine($"Lambda expression: {s}"), "Good day!");
         }
 
         static void Bar(PrintMessage pmDelegate, string message)
