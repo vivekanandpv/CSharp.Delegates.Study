@@ -14,7 +14,7 @@ namespace CSharp.Delegates.Study
             //  this lambda expression closes over the variable declared in the outer scope
             //  this property is called closure
             //  https://en.wikipedia.org/wiki/Closure_(computer_programming)
-            //  lambda expressions holds on to this i
+            //  lambda expression holds on to this i
             fn = () =>
                 {
                     ++i;
